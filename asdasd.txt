@@ -1,0 +1,61 @@
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import ClassComponent from './src/components/ClassComponent';
+import LoginScreen from './src/screen/Login/LoginScreen';
+import UserList from './src/components/UserList/UserList';
+import { useEffect,useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+ export type RootSatckParamList = {
+  loginScreen : undefined
+ };
+
+ const Stack = createNativeStackNavigator<RootSatckParamList>();
+
+export default function App() {
+  const [user, setUser]= useState([]);
+
+  useEffect(()=> {
+
+    const fetchUsers = async () =>{
+      try{
+        const response = require('./src/components/UserList/user.json');
+        console.log(response);
+        setUser(response);
+
+      }catch(error){
+
+      }
+    };
+    fetchUsers();
+  },[]);
+
+  return (
+
+    <NavigationContainer>
+      <Stack.Navigator>
+        
+      </Stack.Navigator>
+  </NavigationContainer>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+{/*<View style={styles.container}>
+      <Text>Open up App.tsx to start working on your app!</Text>
+      <StatusBar style="auto" /> 
+      <FunctionalComponent ap_pat="Montalvo" name="Daniel" />   
+      <ClassComponent age={24} name="montalvo" />   
+      <LoginScreen />   
+
+      
+    </View>*/}
